@@ -6,7 +6,7 @@ React + Vite užduočių planavimo programa su Supabase anonimine autentifikacij
 
 1. Įdiekite Node.js LTS, tada paleiskite `npm install`.
 2. Sukurkite Supabase projektą ir Authentication nustatymuose įjunkite Anonymous sign-ins.
-3. Supabase SQL Editor pritaikykite `supabase/migrations/001_create_tasks.sql`.
+3. Esamai duomenų bazei palikite esamas `tasks` ir `categories` lenteles; kategorijų funkcionalumui Supabase SQL Editor pritaikykite `supabase/migrations/002_enforce_task_category_ownership.sql`. Naujam tuščiam projektui pirmiausia taikykite `001_create_tasks.sql`, tada patikrinkite ir sukurkite reikiamą `categories` lentelę pagal jūsų schemą.
 4. Nukopijuokite `.env.example` į `.env.local` ir įrašykite projekto URL bei anon/public publishable raktą. Publishable raktas turi pirmenybę. Nenaudokite `service_role` rakto.
 5. Paleiskite `npm run dev`.
 
