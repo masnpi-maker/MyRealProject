@@ -1,0 +1,5 @@
+import { useCallback,useEffect,useState } from 'react'
+import { supabase,configError } from '../lib/supabase.js'
+export function useAuth(){const [user,setUser]=useState(null),[loading,setLoading]=useState(true),[error,setError]=useState(configError)
+ const start=useCallback(async()=>{if(!supabase){setError(configError);setLoading(false);return} setLoading(true);setError(null);try{const {data:{session},error:sessionError}=await supabase.auth.getSession();if(sessionError)throw sessionError;if(session?.user){setUser(session.user)}else{const {data,error:authError}=await supabase.auth.signInAnonymously();if(authError)throw authError;setUser(data.user)}}catch(e){console.error('Supabase autentifikacija nepavyko:',e);setError('Nepavyko pradėti anoniminės sesijos. Patikrinkite ryšį ir bandykite dar kartą.')}finally{setLoading(false)}},[])
+ useEffect(()=>{start();if(!supabase)return;const {data:{subscription}}=supabase.auth.onAuthStateChange((_event,session)=>setUser(session?.user??null));return()=>subscription.unsubscribe()},[start]);return {user,loading,error,retry:start}}

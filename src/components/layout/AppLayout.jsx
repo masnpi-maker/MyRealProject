@@ -1,0 +1,4 @@
+import {NavLink,Outlet} from 'react-router-dom'
+import {useTasks} from '../../hooks/useTasks.jsx'
+const links=[['/','Pagrindinis','⌂'],['/tasks','Užduotys','✓'],['/statistics','Statistika','◷'],['/settings','Nustatymai','⚙']]
+export function AppLayout(){const {user}=useTasks();return <div className="shell"><aside className="sidebar"><a className="brand" href="/">daily<span>flow</span><i>✳</i></a><p className="nav-label">MENIU</p><nav>{links.map(([to,label,icon])=><NavLink key={to} to={to} end={to==='/'} className={({isActive})=>isActive?'nav-link active':'nav-link'}><b>{icon}</b>{label}</NavLink>)}</nav><div className="sidebar-foot"><span className="avatar">D</span><div><strong>Tavo erdvė</strong><small>{user?'Anoniminė sesija':'Jungiama…'}</small></div></div></aside><main className="main"><Outlet/></main><nav className="mobile-nav">{links.map(([to,label,icon])=><NavLink key={to} to={to} end={to==='/'}><b>{icon}</b><small>{label}</small></NavLink>)}</nav></div>}
